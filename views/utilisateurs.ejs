@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="/catways">Catways</a></li>
+                <li><a href="/reservations">Réservations</a></li>
+                <li><a href="/utilisateurs">Utilisateurs</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1><%= title %></h1>
+        <div>
+            <h2>Liste des Utilisateurs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <!-- Les utilisateurs seront chargés ici -->
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <h2>Ajouter un Utilisateur</h2>
+            <form id="addUserForm">
+                <label for="name">Nom :</label>
+                <input type="text" id="name" required>
+                
+                <label for="firstname">Prénom :</label>
+                <input type="text" id="firstname" required>
+                
+                <label for="email">Email :</label>
+                <input type="email" id="email" required>
+                
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" required>
+                
+                <button type="submit">Ajouter</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="/static/js/user.js"></script>
+</body>
+</html>

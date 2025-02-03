@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Réservations</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<%- include('partials/header') %>
+<body>
+    <h1>Gestion des Réservations</h1>
+
+    <!-- Formulaire pour ajouter une nouvelle réservation -->
+    <form id="addReservationForm">
+        <label for="catwayNumber">Numéro du catway :</label>
+        <input type="number" id="catwayNumber" required>
+    
+        <label for="clientName">Nom du client :</label>
+        <input type="text" id="clientName" required>
+    
+        <label for="boatName">Nom du bateau :</label>
+        <input type="text" id="boatName" required>
+    
+        <label for="startDate">Date de début :</label>
+        <input type="date" id="startDate" required>
+    
+        <label for="endDate">Date de fin :</label>
+        <input type="date" id="endDate" required>
+    
+        <button type="submit">Ajouter une Réservation</button>
+    </form>
+
+    <!-- Table des réservations -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nom du client</th>
+                <th>Nom du bateau</th>
+                <th>Date d'arrivée</th>
+                <th>Date de départ</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="reservationsTableBody">
+            <!-- Les réservations seront chargées dynamiquement ici -->
+        </tbody>
+    </table>
+    
+    <!-- Conteneur pour le formulaire d'édition -->
+    <div id="editFormContainer"></div>
+
+    <script src="/static/js/reservations.js"></script>
+</body>
+</html>

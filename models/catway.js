@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const catwaySchema = new mongoose.Schema({
     catwayNumber: { type: Number, required: true, unique: true },

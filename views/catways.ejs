@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<%- include('partials/header') %>
+<body>
+    <h1><%= title %></h1>
+
+    <!-- Formulaire d'ajout d'un catway -->
+    <form id="addCatwayForm" onsubmit="addCatway(event)">
+        <label for="catwayNumber">Numéro du catway :</label>
+        <input type="text" id="catwayNumber" required />
+    
+        <label for="catwayType">Type de catway :</label>
+        <input type="text" id="catwayType" required />
+    
+        <label for="status">Statut :</label>
+        <input type="text" id="catwayState" required />
+    
+        <button type="submit">Ajouter un Catway</button>
+    </form>
+
+    <!-- Liste des catways -->
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Type</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (catways && catways.length > 0) { %>
+                <% catways.forEach(catway => { %>
+                    <tr>
+                        <td><%= catway.catwayNumber %></td>
+                        <td><%= catway.catwayType %></td>
+                        <td><%= catway.catwayState %></td> 
+                        <td>
+                            <button onclick="deleteCatway('<%= catway.catwayNumber %>')">Supprimer</button>
+                            <button onclick="showEditForm('<%= catway.catwayNumber %>')">Modifier</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4">Aucun catway disponible</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <!-- Conteneur pour afficher le formulaire d'édition -->
+    <div id="editFormContainer"></div>
+
+    <!-- Inclure le fichier JS -->
+    <script src="/static/js/catways.js"></script>
+       
+        
+</body>
+</html>
