@@ -1,4 +1,3 @@
-// URL de l'API
 console.log('catways.js chargé avec succès');
 const API_URL = 'http://localhost:3000/api/catways';
 
@@ -9,30 +8,21 @@ window.addCatway = async function (event) {
     const catwayType = document.getElementById('catwayType').value;
     const catwayState = document.getElementById('catwayState').value;
 
-    console.log('Tentative d\'ajout d\'un catway :', {
-        catwayNumber,
-        catwayType,
-        catwayState,
-    });
-
     try {
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': localStorage.getItem('token'), // Token JWT
+                Authorization: localStorage.getItem('token'),
             },
             body: JSON.stringify({ catwayNumber, catwayType, catwayState }),
         });
 
         if (response.ok) {
-            const data = await response.json();
-            console.log('Réponse de l\'API après ajout :', data);
             alert('Catway ajouté avec succès !');
-            location.reload(); // Recharge la page
+            location.reload();
         } else {
             const error = await response.json();
-            console.error('Erreur retournée par l\'API :', error);
             alert('Erreur : ' + error.message);
         }
     } catch (error) {
@@ -47,7 +37,7 @@ window.deleteCatway = async function (catwayNumber) {
             const response = await fetch(`${API_URL}/${catwayNumber}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': localStorage.getItem('token'),
+                    Authorization: localStorage.getItem('token'),
                 },
             });
 
@@ -64,48 +54,35 @@ window.deleteCatway = async function (catwayNumber) {
     }
 };
 
-// Afficher le formulaire de modification
-window.showEditForm = function (catwayNumber) {
-    console.log(`Affichage du formulaire pour modifier le catway ${catwayNumber}`);
-    const formHtml = `
-        <h3>Modifier le Catway ${catwayNumber}</h3>
-        <form id="editCatwayForm">
-            <label for="statusEdit">Nouvel état :</label>
-            <input type="text" id="statusEdit" name="status" required>
-            <button type="submit">Modifier</button>
-        </form>
-    `;
-    document.getElementById('editFormContainer').innerHTML = formHtml;
+// Basculer l'affichage du formulaire d'édition
+window.toggleEditForm = function (catwayNumber) {
+    const row = document.getElementById(`editRow-${catwayNumber}`);
+    row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+};
 
-    document.getElementById('editCatwayForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const catwayState = document.getElementById('statusEdit').value;
+// Modifier un catway
+window.updateCatway = async function (event, catwayNumber) {
+    event.preventDefault();
+    const catwayState = document.getElementById(`editCatwayState-${catwayNumber}`).value;
 
-        console.log(`Modification du catway ${catwayNumber} avec le nouvel état : ${catwayState}`);
+    try {
+        const response = await fetch(`${API_URL}/${catwayNumber}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.getItem('token'),
+            },
+            body: JSON.stringify({ catwayState }),
+        });
 
-        try {
-            const response = await fetch(`${API_URL}/${catwayNumber}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': localStorage.getItem('token'),
-                },
-                body: JSON.stringify({ catwayState }), // Assurez-vous d'envoyer "catwayState"
-            });
-
-            if (response.ok) {
-                const updatedCatway = await response.json();
-                console.log('Catway modifié avec succès :', updatedCatway);
-
-                alert('Catway modifié avec succès !');
-                location.reload(); // Recharge la page après modification
-            } else {
-                const error = await response.json();
-                console.error('Erreur lors de la modification du catway :', error);
-                alert('Erreur : ' + error.message);
-            }
-        } catch (error) {
-            console.error('Erreur lors de la modification du catway :', error);
+        if (response.ok) {
+            alert('Catway modifié avec succès !');
+            location.reload();
+        } else {
+            const error = await response.json();
+            alert('Erreur : ' + error.message);
         }
-    });
+    } catch (error) {
+        console.error('Erreur lors de la modification du catway :', error);
+    }
 };

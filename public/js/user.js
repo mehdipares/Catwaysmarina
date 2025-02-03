@@ -23,8 +23,8 @@ window.loadUsers = async function () {
                     <td>${user.firstname}</td>
                     <td>${user.email}</td>
                     <td>
-                        <button onclick="deleteUser('${user._id}')">Supprimer</button>
-                        <button onclick="showEditForm('${user._id}', '${user.name}', '${user.firstname}', '${user.email}')">Modifier</button>
+                        <button class="edit-btn" onclick="showEditForm('${user._id}', '${user.name}', '${user.firstname}', '${user.email}')">Modifier</button>
+                        <button class="delete-btn" onclick="deleteUser('${user._id}')">Supprimer</button>
                     </td>
                 </tr>
             `;
@@ -82,25 +82,30 @@ window.deleteUser = async function (userId) {
     }
 };
 
-// Afficher le formulaire de modification
+// Afficher le formulaire de modification dynamique dans le tableau
 window.showEditForm = function (userId, name, firstname, email) {
-    const formHtml = `
-        <h3>Modifier l'utilisateur</h3>
-        <form id="editUserForm">
-            <label for="nameEdit">Nom :</label>
-            <input type="text" id="nameEdit" value="${name}" required>
+    const row = document.querySelector(`[data-user-id="${userId}"]`);
 
-            <label for="firstnameEdit">Prénom :</label>
-            <input type="text" id="firstnameEdit" value="${firstname}" required>
+    // Remplacer la ligne par un formulaire de modification
+    row.innerHTML = `
+        <td colspan="4">
+            <form id="editUserForm">
+                <label for="nameEdit">Nom :</label>
+                <input type="text" id="nameEdit" value="${name}" required>
 
-            <label for="emailEdit">Email :</label>
-            <input type="email" id="emailEdit" value="${email}" required>
+                <label for="firstnameEdit">Prénom :</label>
+                <input type="text" id="firstnameEdit" value="${firstname}" required>
 
-            <button type="submit">Modifier</button>
-        </form>
+                <label for="emailEdit">Email :</label>
+                <input type="email" id="emailEdit" value="${email}" required>
+
+                <button type="submit" class="btn btn-primary">Modifier</button>
+                <button type="button" class="btn btn-secondary" onclick="loadUsers()">Annuler</button>
+            </form>
+        </td>
     `;
-    document.getElementById('editFormContainer').innerHTML = formHtml;
 
+    // Ajouter un écouteur pour gérer la soumission du formulaire de modification
     document.getElementById('editUserForm').addEventListener('submit', async (event) => {
         event.preventDefault();
 

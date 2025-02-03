@@ -4,26 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+<%- include('partials/header') %>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/">Accueil</a></li>
-                <li><a href="/catways">Catways</a></li>
-                <li><a href="/reservations">Réservations</a></li>
-                <li><a href="/utilisateurs">Utilisateurs</a></li>
-            </ul>
-        </nav>
-    </header>
+    <main id="user-management" class="main-container">
+        <h1 class="page-title"><%= title %></h1>
+        <!-- Formulaire pour ajouter un utilisateur -->
+        <div class="section-container">
+            <h2 class="section-title">Ajouter un Utilisateur</h2>
+            <form id="addUserForm" class="form-container user-form">
+                <label for="name" class="form-label">Nom :</label>
+                <input type="text" id="name" class="form-input" required>
+                
+                <label for="firstname" class="form-label">Prénom :</label>
+                <input type="text" id="firstname" class="form-input" required>
+                
+                <label for="email" class="form-label">Email :</label>
+                <input type="email" id="email" class="form-input" required>
+                
+                <label for="password" class="form-label">Mot de passe :</label>
+                <input type="password" id="password" class="form-input" required>
+                
+                <button type="submit" class="btn btn-primary">Ajouter</button>
+            </form>
+        </div>
 
-    <main>
-        <h1><%= title %></h1>
-        <div>
-            <h2>Liste des Utilisateurs</h2>
-            <table>
-                <thead>
+        <!-- Liste des utilisateurs -->
+        <div class="section-container">
+            <h2 class="section-title">Liste des Utilisateurs</h2>
+            <table class="table user-table">
+                <thead class="table-head">
                     <tr>
                         <th>Nom</th>
                         <th>Prénom</th>
@@ -31,32 +42,16 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody id="usersTableBody">
+                <tbody id="usersTableBody" class="table-body">
                     <!-- Les utilisateurs seront chargés ici -->
                 </tbody>
             </table>
         </div>
 
-        <div>
-            <h2>Ajouter un Utilisateur</h2>
-            <form id="addUserForm">
-                <label for="name">Nom :</label>
-                <input type="text" id="name" required>
-                
-                <label for="firstname">Prénom :</label>
-                <input type="text" id="firstname" required>
-                
-                <label for="email">Email :</label>
-                <input type="email" id="email" required>
-                
-                <label for="password">Mot de passe :</label>
-                <input type="password" id="password" required>
-                
-                <button type="submit">Ajouter</button>
-            </form>
-        </div>
+        
     </main>
 
     <script src="/static/js/user.js"></script>
 </body>
+<%- include('partials/footer') %>
 </html>

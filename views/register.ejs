@@ -9,7 +9,7 @@
 </head>
 <%- include('partials/header') %>
 <body>
-    <main>
+    <main id="register">
         <h1>Inscription</h1>
         <% if (error) { %>
             <p style="color: red;"><%= error %></p>
@@ -32,5 +32,5 @@
         <p>Déjà un compte ? <a href="/login">Connectez-vous ici</a></p>
     </main>
 </body>
-
+<%- include('partials/footer') %>
 </html>
